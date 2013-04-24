@@ -6,7 +6,7 @@
 %======================================================================
 
 \usepackage[utf8]{inputenc}
-
+\usepackage{tabularx}
 \usepackage[T1]{fontenc}
 \usepackage{listings}
 \lstset{language=caml,basicstyle=\ttfamily}
@@ -63,37 +63,175 @@
 %======================================================================
 \section{Objectifs du TER}\label{sec:Objectifs}
 
-Initiation à la recherche bibliographique.
+\begin{frame}\frametitle{Objectif du TER}
 
-Rédaction :
-\idem Rapport sur le sujet (40 pages).
-\idem Rapport de stage (10 pages).
-\idem Présentation du TER.
+\begin{itemize}
+\item Initiation à la recherche bibliographique\newline
 
+\item Rédaction :\newline
+			\subitem \textit{Rapport sur le sujet (40 pages)}\newline
+			\subitem \textit{Rapport du TER (10 pages)}\newline
+			\subitem \textit{Présentation du TER}\newline			
 
+\item Tous les livrables sont rédigés en Latex
+\end{itemize}
 
-\frame
+\end{frame}
 
 % Section 1---------------------------------------------------
 \section{Fondamentaux}
 
-\subsection{Langage et grammaire}
+\subsection{Contexte}
 
+\begin{frame}\frametitle{Contexte}
 
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.65\textwidth]{compilateur.png}
+	\caption{Compilateur}
+	\label{fig:compilateur}
+\end{figure}\FloatBarrier
+
+\end{frame}
 
 \subsection{Analyse Lexicale}
 
+\begin{frame}\frametitle{Analyse Lexicale}\framesubtitle{Principe}
 
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.65\textwidth]{AnalyseLexicale.png}
+	\caption{Analyse lexicale}
+	\label{fig:AnalyseLexicale}
+\end{figure}\FloatBarrier
+
+\end{frame}
 
 \subsection{Analyse Syntaxique}
 
+\begin{frame}\frametitle{Analyse Syntaxique}\framesubtitle{Principe}
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.65\textwidth]{AnalyseSyntaxique.png}
+	\caption{Analyse lexicale}
+	\label{fig:AnalyseLexicale}
+\end{figure}\FloatBarrier
+
+\end{frame}
+
+\begin{frame}\frametitle{Analyse Syntaxique}\framesubtitle{Exemple}
+
+S => S ; S\newline
+S => id := E\newline
+S => print(L)\newline
+E => id\newline
+E => num\newline
+E => E + E\newline
+E => (S , E)\newline
+L => E\newline
+L => L , E\newline\newline
+
+id := num; id := id + (id := num + num, id)
+
+\end{frame}
+
+\begin{frame}\frametitle{Analyse Syntaxique}\framesubtitle{Exemple}
+
+\newline\newline
+\underline{S}\newline
+S ; \underline{S}\newline
+\underline{S} ; id := E\newline
+id := \underline{E} ; id := E\newline
+id := num ; id := \underline{E}\newline
+id := num ; id := E + \underline{E}\newline
+id := num ; id := \underline{E} + (S , E )\newline
+id := num ; id := id + (\underline{S} , E )\newline
+id := num ; id := id + (id := \underline{E} , E )\newline
+id := num ; id := id + (id := E + E , \underline{E} )\newline
+id := num ; id := id + (id := \underline{E} + E , id )\newline
+id := num ; id := id + (id := num + \underline{E} , id )\newline
+id := num ; id := id + (id := num + num , id )\newline
+
+\end{frame}
+
+\subsection{Analyse LL}
+
+\begin{frame}\frametitle{Analyse LL}\framesubtitle{Définition}
+
+\begin{itemize}
+			\item Left to right\newline
+			\item Rightmost derivation\newline
+			\item LL(k)\newline
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}\frametitle{Analyse LL}\framesubtitle{Exemple}
+
+mot analysé:   id := num ; id := id + (id := num + num, id)
+
+\newline\newline
+\underline{S}\newline
+\underline{S} ; S\newline
+id := \underline{E} ; S\newline
+id := num ; \underline{S}\newline
+id := num ; id := \underline{E}\newline
+id := num ; id := \underline{E} + E\newline
+id := num ; id := id + \underline{E}\newline
+id := num ; id := id + (\underline{S}, E)\newline
+id := num ; id := id + (id := \underline{E} , E)\newline
+id := num ; id := id + (id := \underline{E} + E, E)\newline
+id := num ; id := id + (id := num + \underline{E}, E)\newline
+id := num ; id := id + (id := num + num, \underline{E})\newline
+id := num ; id := id + (id := num + num, id)\newline
+
+\end{frame}
+
+\subsection{Analyse LR}
+
+\begin{frame}\frametitle{Analyse LR}\framesubtitle{Définition}
+
+\begin{itemize}
+			\item Left to right\newline
+			\item Leftmost derivation\newline
+			\item LR(k)\newline
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}\frametitle{Analyse LR}\framesubtitle{Exemple}
+
+mot analysé:   id := num ; id := id + (id := num + num, id)
+
+\newline\newline
+\underline{S}\newline
+S ; \underline{S}\newline
+S ; id := \underline{E}\newline
+S ; id := E + \underline{E}\newline
+S ; id := E + (S, \underline{E})\newline
+S ; id := E + (\underline{S}, id)\newline
+S ; id := E + (id := \underline{E}, id)\newline
+S ; id := E + (id := E + \underline{E}, id)\newline
+S ; id := E + (id := \underline{E} + num, id)\newline
+S ; id := \underline{E} + (id := num + num, id)\newline
+\underline{S} ; id := id + (id := num + num, id)\newline
+id := \underline{E} ; id := id + (id := num + num, id)\newline
+id := num ; id := id + (id := num + num, id)\newline
+
+\end{frame}
+
+\begin{frame}\frametitle{Analyse LR}\framesubtitle{Types d'analyseurs LR}
+
+\begin{itemize}
+			\item Analyseurs LR simples (SLR)\newline
+			\item Analyseurs syntaxiques LR avec anticipation (LALR)\newline
+			\item Analyseurs syntaxiques canoniques\newline
+\end{itemize}
+
+\end{frame}
 
 
-\subsubsection{Analyse LL}
-
-
-
-\subsubsection{Analyse LR}
 
 
 
@@ -102,18 +240,60 @@ Rédaction :
 
 \subsection{YACC}
 
+\begin{frame}\frametitle{YACC}\framesubtitle{Définitions}
+
+\begin{itemize}
+			\item Génération d'analyseur syntaxique\newline
+					\subitem \textit{A partir d'une spécification}\newline
+			\item Langage : C\newline
+					\subitem \textit{Les analyseurs syntaxique généré par YACC sont en langage C}\newline
+			\item Type LALR\newline
+					\subitem \textit{Les analyseurs syntaxique généré par YACC sont de type LALR}\newline
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}\frametitle{YACC}\framesubtitle{Spécifications}
+
+Les spécifications permettent:
+
+\begin{itemize}
+			\item Description du langage\newline
+			\item Spécification des actions associées au règles de grammaires\newline
+			\item Génération d'analyseur syntaxique\newline
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}\frametitle{YACC}\framesubtitle{Structure de la spécifications}
+
+La spécification suit la structure suivante :
+
+Bloc des déclarations
+
+%%
+
+Règles de grammaire
+
+%%
+
+Programme
+
+A : B \{ /* action pour cette regle */ \};
+
+\end{frame}
+
+\begin{frame}\frametitle{YACC}\framesubtitle{Exemple}
 
 
-\subsubsection{Définition}
-
-
-
-\subsubsection{Exemple}
+\end{frame}
 
 
 
 \subsection{ANTLR}
 
+
+\end{frame}
 
 
 \subsubsection{Définition}
