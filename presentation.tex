@@ -1,0 +1,152 @@
+\documentclass{beamer} 
+
+
+%======================================================================
+% Packages / Options
+%======================================================================
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\lstset{language=caml,basicstyle=\ttfamily}
+
+% Beamer-specific settings
+\mode<presentation>
+{
+  \usetheme{Darmstadt}
+  \useoutertheme{infolines}
+}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Plan}
+    \tableofcontents[sectionstyle=show/shaded,subsectionstyle=hide]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Plan}
+    \tableofcontents[sectionstyle=show/hide,subsectionstyle=show/shaded/hide]
+  \end{frame}
+}
+
+\setbeamertemplate{footline}
+{%
+\insertpagenumber
+\insertshorttitle[width={3cm},center]
+\insertshortinstitute[width={3cm},center]
+\insertshortdate[width={3cm},center]
+}
+
+
+%======================================================================
+% Titlepage
+%======================================================================
+
+\title[Analyse Syntaxique]{Analyse Syntaxique}
+
+\author{Mohammed Akram RHAFRANE - Mehdi BOUTCHICHE - Nathanael BERTRAND - Ismail SENHAJI}
+\institute{Université de Toulouse III/IRIT}
+\date{Année 2012/2013} 
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+%======================================================================
+\section{Objectifs du TER}\label{sec:Objectifs}
+
+Initiation à la recherche bibliographique.
+
+Rédaction :
+\idem Rapport sur le sujet (40 pages).
+\idem Rapport de stage (10 pages).
+\idem Présentation du TER.
+
+
+
+\frame
+
+% Section 1---------------------------------------------------
+\section{Fondamentaux}
+
+\subsection{Langage et grammaire}
+
+
+
+\subsection{Analyse Lexicale}
+
+
+
+\subsection{Analyse Syntaxique}
+
+
+
+\subsubsection{Analyse LL}
+
+
+
+\subsubsection{Analyse LR}
+
+
+
+% Section 2---------------------------------------------------
+\section{Comparaison entre les outils}
+
+\subsection{YACC}
+
+
+
+\subsubsection{Définition}
+
+
+
+\subsubsection{Exemple}
+
+
+
+\subsection{ANTLR}
+
+
+
+\subsubsection{Définition}
+
+
+
+\subsubsection{Exemple}
+
+
+
+% Section 3---------------------------------------------------
+\section{Xtext}
+
+\subsection{Définition}
+
+
+
+\subsection{Fonctionnement}
+
+
+
+\subsection{Exemple}
+
+
+
+%-------------------------------------------------------------
+
+\section{Conclusion}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% coding: utf-8
+%%% End: 
