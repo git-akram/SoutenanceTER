@@ -49,7 +49,7 @@
 
 \title[Analyse Syntaxique]{Analyse Syntaxique}
 
-\author{Mohammed Akram RHAFRANE - Mehdi BOUTCHICHE - Nathanael BERTRAND - Ismail SENHAJI}
+\author{Mohammed Akram RHAFRANE - Mehdi BOUTCHICHE \\Nathanaël BERTRAND - Ismail SENHAJI \\_\\Encadrant: Martin Strecker}
 \institute{Université de Toulouse III/IRIT}
 \date{Année 2012/2013} 
 
@@ -87,33 +87,9 @@
 
 	\begin{figure}[h]
 		\centering
-			\includegraphics[width=0.65\textwidth]{compilateur.png}
-		\caption{Compilateur}
-		\label{fig:compilateur}
-	\end{figure}\FloatBarrier
-
-\end{frame}
-
-\begin{frame}\frametitle{Contexte}
-
-	\begin{figure}[h]
-		\centering
 			\includegraphics[width=0.65\textwidth]{compilation.png}
 		\caption{Processus de compilation}
 		\label{fig:compilation}
-	\end{figure}\FloatBarrier
-
-\end{frame}
-
-\subsection{Analyse Lexicale}
-
-\begin{frame}\frametitle{Analyse Lexicale}\framesubtitle{Principe}
-
-	\begin{figure}[h]
-		\centering
-			\includegraphics[width=0.65\textwidth]{AnalyseLexicale.png}
-		\caption{Analyse lexicale}
-		\label{fig:AnalyseLexicale}
 	\end{figure}\FloatBarrier
 
 \end{frame}
@@ -172,7 +148,7 @@
 
 	\begin{itemize}
 				\item Left to right\newline
-				\item Rightmost derivation\newline
+				\item Leftmost derivation\newline
 				\item LL(k)\newline
 	\end{itemize}
 
@@ -205,7 +181,7 @@
 
 	\begin{itemize}
 				\item Left to right\newline
-				\item Leftmost derivation\newline
+				\item Rightmost derivation\newline
 				\item LR(k)\newline
 	\end{itemize}
 
@@ -264,6 +240,17 @@
 
 \end{frame}
 
+\begin{frame}\frametitle{YACC}\framesubtitle{Description de YACC}
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.70\textwidth]{yaccDiagramme.png}
+	\caption{Description de YACC}
+	\label{fig:yaccDiagramme}
+	\end{figure}\FloatBarrier
+
+\end{frame}
+
 \begin{frame}\frametitle{YACC}\framesubtitle{Spécifications}
 
 	Les spécifications permettent:
@@ -276,10 +263,11 @@
 
 \end{frame}
 
-\begin{frame}\frametitle{YACC}\framesubtitle{Structure de la spécifications}
+\begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Structure de la spécification}
 
 La spécification suit la structure suivante :
 
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 Bloc des déclarations
 
 %%
@@ -289,8 +277,14 @@ Règles de grammaire
 %%
 
 Programme
+\end{Verbatim}
 
-A : B \{ /* action pour cette regle */ \};
+
+Règles de grammaire :
+
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
+A : B { /* action pour cette regle */ };
+\end{Verbatim}
 
 \end{frame}
 
@@ -313,7 +307,7 @@ A : B \{ /* action pour cette regle */ \};
 \begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Exemple}
 
 G(L) = <N,X,P,S> Avec
-\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
+\begin{Verbatim}[fontsize=\scriptsize]
 N : { ligne, commande, expr, terme, facteur }
 X : { [0-9], \n, +, *, (, ) }
 P : {
@@ -340,7 +334,7 @@ S : ligne
 
 \begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Exemple}
 
-Fonction yylex():
+Spécification d'une mini calculatrice :
 
 \begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 
@@ -353,6 +347,13 @@ Fonction yylex():
 %token CHIFFRE
 
 %%
+\end{Verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Exemple}
+
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 ligne : commande '\n' ligne
     | '\n' { printf("Fin du programme\n"); exit(0); }
     ;
@@ -373,6 +374,13 @@ facteur : '(' expr ')' { $$ = $2; }
     ;
 
 %%
+\end{Verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Exemple}
+
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 int main(){
     yyparse();   
 }
@@ -450,11 +458,11 @@ int yylex(){
 \begin{frame}[fragile,allowframebreaks=0.98]
 \frametitle{Antlr}\framesubtitle{Gestion de l'arbre}
 	Voici un petit exemple de la constrcuction d'un arbre syntaxique : 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 	
 	if 3 + 4 * 5 then return 4;
 	
-\end{verbatim}
+\end{Verbatim}
 
 L'arbre correspondant :
 
@@ -477,7 +485,7 @@ L'arbre correspondant :
 
 \begin{frame}[fragile,allowframebreaks=0.98]\frametitle{Antlr}\framesubtitle{Exemple de grammmaire Antlr: Calculatrice simple}
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 
 grammar GrammaireSimple;
 
@@ -492,18 +500,18 @@ tokens {
 }
  
 @members {
-    public static void Main(string[] args) {
-        GrammaireSimpleLexer lex = new GrammaireSimpleLexer(new ANTLRFileStream(args[0]));
-        CommonTokenStream tokens = new CommonTokenStream(lex);
+public static void Main(string[] args) {
+	GrammaireSimpleLexer lex = new GrammaireSimpleLexer(new ANTLRFileStream(args[0]));
+  CommonTokenStream tokens = new CommonTokenStream(lex);
  
-        GrammaireSimplecParser parser = new GrammaireSimpleParser(tokens);
+  GrammaireSimplecParser parser = new GrammaireSimpleParser(tokens);
  
-        try {
-            parser.expr();
-        } catch (RecognitionException e)  {
-            Console.Error.WriteLine(e.StackTrace);
-        }
-    }
+  try {
+		parser.expr();
+  } catch (RecognitionException e)  {
+			Console.Error.WriteLine(e.StackTrace);
+		}
+  }
 }
  
  %PARSER RULES
@@ -522,7 +530,7 @@ NUMBER  : (DIGIT)+ ;
 WHITESPACE : ( '\t' | ' ' | '\r' | '\n'| '\u000C' )+    { $channel = Hidden; } ; 
 fragment DIGIT  : '0'..'9' ;
 
-\end{verbatim}
+\end{Verbatim}
 
 
 \end{frame}
@@ -611,7 +619,7 @@ fragment DIGIT  : '0'..'9' ;
 	\centering
 			\includegraphics[width=0.90\textwidth]{4.PNG}
 	\label{fig:4}
-\end{figure}
+	\end{figure}
 
 \end{frame} 	\begin{frame}
 	\frametitle{Xtext:Exemple}\framesubtitle{Etape 5: Ajouter une validation}
@@ -627,6 +635,26 @@ fragment DIGIT  : '0'..'9' ;
 %-------------------------------------------------------------
 
 \section{Conclusion}
+
+\begin{frame}\frametitle{Conclusion}
+
+	\begin{itemize}
+				\item Initiation au travail de recherche\newline
+				\item Qualité de rédaction\newline
+				\item Organisation au sein d'une equipe de recherche\newline
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+	\begin{figure}[h]
+	\centering
+			\includegraphics[width=0.30\textwidth]{question.jpg}
+	\label{fig:question}
+	\end{figure}
+	
+\end{frame}
 
 \end{document}
 
