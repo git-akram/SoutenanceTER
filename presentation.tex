@@ -264,6 +264,17 @@
 
 \end{frame}
 
+\begin{frame}\frametitle{YACC}\framesubtitle{Description de YACC}
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.70\textwidth]{yaccDiagramme.png}
+	\caption{Description de YACC}
+	\label{fig:yaccDiagramme}
+	\end{figure}\FloatBarrier
+
+\end{frame}
+
 \begin{frame}\frametitle{YACC}\framesubtitle{Spécifications}
 
 	Les spécifications permettent:
@@ -276,10 +287,11 @@
 
 \end{frame}
 
-\begin{frame}\frametitle{YACC}\framesubtitle{Structure de la spécifications}
+\begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Structure de la spécification}
 
 La spécification suit la structure suivante :
 
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 Bloc des déclarations
 
 %%
@@ -289,8 +301,14 @@ Règles de grammaire
 %%
 
 Programme
+\end{Verbatim}
 
-A : B \{ /* action pour cette regle */ \};
+
+Règles de grammaire :
+
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
+A : B { /* action pour cette regle */ };
+\end{Verbatim}
 
 \end{frame}
 
@@ -313,7 +331,7 @@ A : B \{ /* action pour cette regle */ \};
 \begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Exemple}
 
 G(L) = <N,X,P,S> Avec
-\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
+\begin{Verbatim}[fontsize=\scriptsize]
 N : { ligne, commande, expr, terme, facteur }
 X : { [0-9], \n, +, *, (, ) }
 P : {
@@ -340,7 +358,7 @@ S : ligne
 
 \begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Exemple}
 
-Fonction yylex():
+Spécification d'une mini calculatrice :
 
 \begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 
@@ -353,6 +371,13 @@ Fonction yylex():
 %token CHIFFRE
 
 %%
+\end{Verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Exemple}
+
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 ligne : commande '\n' ligne
     | '\n' { printf("Fin du programme\n"); exit(0); }
     ;
@@ -373,6 +398,13 @@ facteur : '(' expr ')' { $$ = $2; }
     ;
 
 %%
+\end{Verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks=0.98]\frametitle{YACC}\framesubtitle{Exemple}
+
+\begin{Verbatim}[fontsize=\scriptsize,frame=lines]
 int main(){
     yyparse();   
 }
@@ -534,7 +566,7 @@ int yylex(){
 	\centering
 			\includegraphics[width=0.90\textwidth]{4.PNG}
 	\label{fig:4}
-\end{figure}
+	\end{figure}
 
 \end{frame} 	\begin{frame}
 	\frametitle{Etape 5: Ajouter une validation}
@@ -550,6 +582,26 @@ int yylex(){
 %-------------------------------------------------------------
 
 \section{Conclusion}
+
+\begin{frame}\frametitle{Conclusion}
+
+	\begin{itemize}
+				\item Initiation au travail de recherche\newline
+				\item Qualité de rédaction\newline
+				\item Organisation au sein d'une equipe de recherche\newline
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+
+	\begin{figure}[h]
+	\centering
+			\includegraphics[width=0.30\textwidth]{question.jpg}
+	\label{fig:question}
+	\end{figure}
+	
+\end{frame}
 
 \end{document}
 
